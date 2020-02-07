@@ -1,0 +1,7 @@
+<apex:page standardController="Opportunity" extensions="ContractRenewerOpp" action="{!renewContract}">
+<apex:form >
+<apex:inputHidden value="{!Opportunity.Id}"/>
+<apex:inputHidden value="{!Opportunity.SBQQ__RenewedContract__c}"/>
+<apex:inputHidden value="{!Opportunity.Owner}"/>
+</apex:form>
+</apex:page>
