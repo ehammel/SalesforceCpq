@@ -4,7 +4,7 @@ export function onInit(quoteLineModels, conn) {
     console.log('=====END ===== ON INIT PRICE RULES=====');
     return Promise.resolve();
 }
-//test
+
 export function onBeforeCalculate(quoteModel, quoteLineModels, conn) {
     console.log('=====START ===== BEFORE CALCULATE PRICE RULES=====');
     console.log('onBeforeCalculate()', quoteModel, quoteLineModels, conn);
