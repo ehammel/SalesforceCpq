@@ -1,3 +1,7 @@
+/*
+Custom Script (QCP).  Function: prints Quote, Quote Line and Connection Models (conn) in the browser.  Copy and paste this code into a Custom Script record and then populate the name of the Custom Script record in the CPQ installed package settings 
+*/
+
 export function onInit(quoteLineModels, conn) {
     console.log('=====START ===== ON INIT PRICE RULES=====');
     console.log('onInit()', quoteLineModels, conn);
