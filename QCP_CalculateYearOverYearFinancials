@@ -120,7 +120,7 @@ export function onAfterCalculate(quote, lines) {
   var legacySoftwareYear4 = 0;
   var legacySoftwareYear5 = 0;
   //Discount off List
-  var totalDiscountYear1 = 0; // = SUM TOTAL DISCOUNT AMT YEAR 1 / SUM OF NET TOTAL YEAR 1
+  var totalDiscountYear1 = 0; // equals SUM TOTAL DISCOUNT AMT YEAR 1 / SUM OF NET TOTAL YEAR 1
   var totalDiscountYear2 = 0;
   var totalDiscountYear3 = 0;
   var totalDiscountYear4 = 0;
