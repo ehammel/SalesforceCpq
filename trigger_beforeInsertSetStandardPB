@@ -1,4 +1,4 @@
-trigger beforeOppTrigger on Opportunity (before insert) {
+trigger opportunityTrigger on Opportunity (before insert) {
     for(Opportunity opp : Trigger.new){
         opp.SBQQ__QuotePricebookId__c = Id.valueOf(fetchStandardPriceBookID.queryStandardPriceBookId());
         //system.debug(opp.SBQQ__QuotePricebookId__c);
