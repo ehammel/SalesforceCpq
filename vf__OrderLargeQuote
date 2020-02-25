@@ -1,0 +1,8 @@
+<apex:page standardController="SBQQ__Quote__c" extensions="OrderLargeQuote" action="{!orderQuote}">
+<apex:form >
+<apex:inputHidden value="{!SBQQ__Quote__c.Id}"/>
+<apex:inputHidden value="{!SBQQ__Quote__c.Owner}"/>
+
+
+</apex:form>
+</apex:page>
