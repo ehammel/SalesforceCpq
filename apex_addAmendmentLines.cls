@@ -1,14 +1,3 @@
-/**
- * @File Name          : addAmendmentLines
- * @Description        : Takes Quote IDs, finds Assets related to Quote Master Contract, creates Amendment Quote Lines for Assets
- * @Author             : Erik Hammel
- * @Group              : Salesforce CSG
- * @Last Modified By   : Erik Hammel
- * @Last Modified On   : 1/20/2020, 11:25:44 PM
- * @Modification Log   : 
- * Ver       Date            Author                 Modification
- * 1.0    1/20/2020        Erik Hammel             Initial Version
-**/
 Public Class addAmendmentLines{
 
     Public static List<SBQQ__QuoteLine__c> addLines(List<SBQQ__Quote__c> quoteList){
