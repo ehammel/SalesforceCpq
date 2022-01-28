@@ -11,7 +11,7 @@ function convertDate(inputDate) {
     }
 }
 
-//Example Implementation
+// 1. Example Implementation
 export function onAfterPriceRules(quoteModel, quoteLines) {
 quoteLines.forEach(function (line) {
 var productStatusMessage = "";
@@ -32,7 +32,7 @@ function clearLineDiscountAndUplift(line){
     line.record["SBQQ__UpliftAmount__c"] = null;
 }
 
-//Example Implementation
+// 2. Example Implementation
 //...
 var clearDiscounts = quote.record["Mass_Edit_Clear_Discount_Uplifts__c"];
        
@@ -54,7 +54,7 @@ function inheritFieldValueFromParent(line, field){
     }
 }
 
-//Example Implementation
+//3. Example Implementation
 
 export function onInit(quoteLines) {
     if (quoteLines) {
@@ -80,7 +80,7 @@ export function onInit(quoteLines) {
     return textArea;
   }
 
-//Example Implementation
+//4. Example Implementation
 
 function populateGroupList(approvalGroups, lineProductFamily, productLine, isCustomProduct, isLegacyProduct) {
     var thisGroup = '';
@@ -128,7 +128,7 @@ function calculateQuoteDiscount(quoteModel, sum_addedRegularTotal, sum_addedCust
     return calculatedDiscountPercent;
   }
 
-//Example Implementation
+// 5. Example Implementation
 quoteLines.forEach(function(line) {
   var optional = line.record.SBQQ__Optional__c;
   var effectiveQuantity = line.record.SBQQ__EffectiveQuantity__c;
@@ -148,11 +148,9 @@ function preCalcNetTotal(listPrice, optionDiscount, prorateMultiplier, discount,
     var effectiveOptionDiscount = optionDiscount / 100;
     var appliedOptionDiscount = 1 - effectiveOptionDiscount;
     calculatedRegularPrice = listPrice * appliedOptionDiscount * prorateMultiplier;
-    //console.log('calc reg price ' + calculatedRegularPrice);
     var calculatedCustomerPrice = calculatedRegularPrice;
     //CHECK for Disc % vs Disc AMT
     if (discount) {
-        //console.log('discount percent detected');
         calculatedCustomerPrice = calculatedRegularPrice * (1 - discount / 100);
 
     }
@@ -168,7 +166,6 @@ function preCalcNetTotal(listPrice, optionDiscount, prorateMultiplier, discount,
     } else {
         calculatedNetTotal = calculatedNetPrice * effQ;
     }
-    //console.log('calc net total ' + calculatedNetTotal);
     if(isNaN(calculatedNetTotal) || calculatedNetTotal == 0){
         calculatedNetTotal = 0;
     }
@@ -187,12 +184,12 @@ function sumFieldToParentProduct(parentLine, fieldToSum) {
     }
 }
 
-//Implementation
+//7. Implementation
 export function onAfterCalculate(quoteModel, quoteLineModels) {
   quoteLineModels.forEach(function(line) {
     var isBundleParentProduct = line.record.SBQQ__Bundle__c;
         if (isBundleParentProduct) {
-            line.record["Package_Net_Total__c"] = sumFieldToParentProduct(line, 'IPC_Net_Total1__c');
+            line.record["Package_Net_Total__c"] = sumFieldToParentProduct(line, 'Custom_Net_Total__c');
         }
   });
   return Promise.resolve();
