@@ -12,6 +12,7 @@ function convertDate(inputDate) {
 }
 
 // 1. Example Implementation
+//Use case: set quote field to dispaly an expiration date message to the end user 
 export function onAfterPriceRules(quoteModel, quoteLines) {
 quoteLines.forEach(function (line) {
 var productStatusMessage = "";
@@ -36,7 +37,7 @@ function clearLineDiscountAndUplift(line){
 //...
 var clearDiscounts = quote.record["Mass_Edit_Clear_Discount_Uplifts__c"];
        
-if(clearDiscounts && effectiveQuantity > 0){
+if(clearDiscounts = true && effectiveQuantity > 0){
   clearLineDiscountAndUplift(line);
 }
 //...
@@ -124,7 +125,7 @@ function calculateQuoteDiscount(quoteModel, sum_addedRegularTotal, sum_addedCust
         calculatedDiscountPercent = 100 * (sum_addedRegularTotal - sum_addedCustomerTotal) / sum_addedRegularTotal;
         calculatedDiscountPercent.toFixed(0);
     }
-    //console.log('show me calc discount percent: ' + calculatedDiscountPercent);
+    //console.log('show calc discount percent == ' + calculatedDiscountPercent);
     return calculatedDiscountPercent;
   }
 
