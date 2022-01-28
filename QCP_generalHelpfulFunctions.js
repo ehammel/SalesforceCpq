@@ -1,6 +1,5 @@
 //Helpful Custom Script (AKA "QCP") JavaScript Functions for Salesforce CPQ.  
 
-
 // 1. Convert Date field to Text to display to end user:
 
 function convertDate(inputDate) {
@@ -16,7 +15,7 @@ function convertDate(inputDate) {
 export function onAfterPriceRules(quoteModel, quoteLines) {
 quoteLines.forEach(function (line) {
 var productStatusMessage = "";
-productStatusMessage = productStatusMessage  + '* The end of sales date for this product is ' + convertDate(line.record["SBQQ__Product__r"]["End_of_Sale_New__c"]) + ' and occurs before the opportunity is expected to close ' + '\\n';
+productStatusMessage += '* The end of sales date for this product is ' + convertDate(line.record["SBQQ__Product__r"]["EndOfLifeDate__c"]) + ' and occurs before the opportunity is expected to close ' + '\\n';
 line.record["ProductStatus__c"] = productStatusMessage.trim();
 });
 return Promise.resolve()
@@ -75,7 +74,7 @@ export function onInit(quoteLines) {
     if (textArea == '') {
         textArea = someString;
     } else if (!textArea.includes(someString)) {
-        textArea = textArea + ', ' + someString;
+        textArea += ', ' + someString;
     }
     //console.log()'unique string return result ' + textArea);
     return textArea;
@@ -83,10 +82,9 @@ export function onInit(quoteLines) {
 
 //4. Example Implementation
 
-function populateGroupList(approvalGroups, lineProductFamily, productLine, isCustomProduct, isLegacyProduct) {
+function populateGroupList(approvalGroups, lineProductFamily, productLine, isLegacyProduct) {
     var thisGroup = '';
-    if (isCustomProduct) {
-        if (productLine == 'Automotive') {
+     if (productLine == 'Automotive') {
             thisGroup = 'SVP Automotive Operations';
             approvalGroups = addThisUniqueString(approvalGroups, thisGroup);
         }
@@ -98,7 +96,6 @@ function populateGroupList(approvalGroups, lineProductFamily, productLine, isCus
             thisGroup = 'SVP Delivery Management';
             approvalGroups = addThisUniqueString(approvalGroups, thisGroup);
         }
-    }
     if (lineProductFamily == 'Offering' && isLegacyProduct) {
         thisGroup = 'Sales Operations';
         approvalGroups = addThisUniqueString(approvalGroups, thisGroup);
@@ -111,9 +108,8 @@ function populateGroupList(approvalGroups, lineProductFamily, productLine, isCus
     if (textArea == '') {
         textArea = someString;
     } else if (!textArea.includes(someString)) {
-        textArea = textArea + ', ' + someString;
+        textArea += ', ' + someString;
     }
-    //console.log()'unique string return result ' + textArea);
     return textArea;
   }
 
@@ -125,7 +121,7 @@ function calculateQuoteDiscount(quoteModel, sum_addedRegularTotal, sum_addedCust
         calculatedDiscountPercent = 100 * (sum_addedRegularTotal - sum_addedCustomerTotal) / sum_addedRegularTotal;
         calculatedDiscountPercent.toFixed(0);
     }
-    //console.log('show calc discount percent == ' + calculatedDiscountPercent);
+    //console.log('Calculated discount percent == ' + calculatedDiscountPercent);
     return calculatedDiscountPercent;
   }
 
@@ -133,6 +129,7 @@ function calculateQuoteDiscount(quoteModel, sum_addedRegularTotal, sum_addedCust
 quoteLines.forEach(function(line) {
   var optional = line.record.SBQQ__Optional__c;
   var effectiveQuantity = line.record.SBQQ__EffectiveQuantity__c;
+    //Not Optional lines and only added lines' totals.  Excludes canceled quote lines negative totals.
   if (!optional && effectiveQuantity > 0) {
     addedCustomerTotal = line.record.SBQQ__CustomerTotal__c;
     addedRegularTotal = line.record.SBQQ__RegularTotal__c;
@@ -142,7 +139,7 @@ sum_addedCustomerTotal = sum_addedCustomerTotal + addedCustomerTotal;
 sum_addedRegularTotal = sum_addedRegularTotal + addedRegularTotal;
 quoteModel.record["QuoteDiscount__c"] = calculateQuoteDiscount(quoteModel, sum_addedRegularTotal, sum_addedCustomerTotal);
 
-// 6. Access Net Total before After Calculate Step.  Note: this needs to be tested for every implementation!
+// 6. Access Net Total before After Calculate Step.  Note: this needs to be tested for every implementation and should be at the end of the pricing sequence, preferably in the !
 
 function preCalcNetTotal(listPrice, optionDiscount, prorateMultiplier, discount, addDisc, bundled, effQ) {
     var calculatedRegularPrice = 0;
@@ -153,7 +150,6 @@ function preCalcNetTotal(listPrice, optionDiscount, prorateMultiplier, discount,
     //CHECK for Disc % vs Disc AMT
     if (discount) {
         calculatedCustomerPrice = calculatedRegularPrice * (1 - discount / 100);
-
     }
     if (addDisc) {
         //no proration by default
@@ -209,6 +205,7 @@ export function onBeforeCalculate(quoteModel, quoteLineModels, conn) {
 
 
 //9. Leverages Quote Process field on the Solution Group object to set the Quote Process on the Quote Line Group when it is created.  Useful when looking to create a different Quote Process for each Quote Line Group on the Quote.
+//Requires Solution Groups with a Quote Process lookup field.  And a formula on the Quote Line Group object.
 function setQuoteProcessOnGroupFromSolutionGroup(){
 var defaultQuoteProcess = [];
 var defaultSiteType = 'Large Site';
