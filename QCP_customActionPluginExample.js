@@ -13,9 +13,10 @@ clonedLines.originalLines.standard.forEach(function (line){
 
 export function onAfterCloneLine(quote, clonedLines) {
     clonedLines.originalLines.standard.forEach(function (line){
-    //do stuff
+    //do stuff to Original, Source lines
     });
-clonedLines.clonedLines.standard.forEach(function (line){
+   clonedLines.clonedLines.standard.forEach(function (line){
+    //do stuff to new, cloned lines
     line.record["SBQQ__Discount__c"] = null;
     line.record["SBQQ__AdditionalDiscountAmount__c"] = null;
 });
