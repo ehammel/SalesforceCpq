@@ -1,5 +1,5 @@
 /*
-Custom Script (QCP).  Function: prints Quote, Quote Line and Connection Models (conn) in the browser.  Copy and paste this code into a Custom Script record and then populate the name of the Custom Script record in the CPQ installed package settings 
+Custom Script (QCP).  Function: prints Quote, Quote Line and Connection Models (conn) in the browser's console when on the Edit Lines (Line Editor) page.  Copy and paste this code into a Custom Script record and then populate the name of the Custom Script record in the CPQ installed package settings 
 Order of Operations (OOP) numerated and compared against the OOP for Price Rules.
 */
 
