@@ -26,8 +26,9 @@ export function onBeforeCalculate(quoteModel, quoteLineModels, conn) {
 // 5. QCP onBeforePriceRules executes
 export function onBeforePriceRules(quoteModel, quoteLineModels, conn) {        
    console.log('=====START ===== BEFORE PRICE RULES PRICE RULES=====');
-   return Promise.resolve();
+   console.log('onBeforePriceRules()', quoteModel, quoteLineModels, conn);
    console.log('=====END ===== BEFORE PRICE RULES PRICE RULES=====');
+    return Promise.resolve();
 }
 
 // 6. Price Rules with Calculator Evaluation Event "On Calculate" Execute
