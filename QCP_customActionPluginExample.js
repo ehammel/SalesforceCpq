@@ -3,14 +3,15 @@
 // Sample use case
 // When cloning a Quote Line, the discount on the new, cloned quote line should be reset to blank field values.
 
+//Before cloning takes place
 export function onBeforeCloneLine(quote, clonedLines) {
-clonedLines.originalLines.standard.forEach(function (line){
-
-});
-
+   clonedLines.originalLines.standard.forEach(function (line){
+   //do stuff
+   });
    return Promise.resolve();
 }
 
+//After cloning occurs
 export function onAfterCloneLine(quote, clonedLines) {
     clonedLines.originalLines.standard.forEach(function (line){
     //do stuff to Original, Source lines
