@@ -25,9 +25,9 @@ export function onBeforeCalculate(quoteModel, quoteLineModels, conn) {
 
 // 5. QCP onBeforePriceRules executes
 export function onBeforePriceRules(quoteModel, quoteLineModels, conn) {        
-   console.log('=====START ===== BEFORE PRICE RULES PRICE RULES=====');
-   console.log('onBeforePriceRules()', quoteModel, quoteLineModels, conn);
-   console.log('=====END ===== BEFORE PRICE RULES PRICE RULES=====');
+    console.log('=====START ===== BEFORE PRICE RULES PRICE RULES=====');
+    console.log('onBeforePriceRules()', quoteModel, quoteLineModels, conn);
+    console.log('=====END ===== BEFORE PRICE RULES PRICE RULES=====');
     return Promise.resolve();
 }
 
@@ -35,9 +35,9 @@ export function onBeforePriceRules(quoteModel, quoteLineModels, conn) {
 
 // 7. QCP onAfterPriceRules executes
 export function onAfterPriceRules(quoteModel, quoteLineModels, conn) {
-   console.log('=====START ===== AFTER PRICE RULES PRICE RULES=====');
+    console.log('=====START ===== AFTER PRICE RULES PRICE RULES=====');
     console.log('onAfterPriceRules()', quoteModel, quoteLineModels, conn);
-   console.log('=====END ===== AFTER PRICE RULES PRICE RULES=====');
+    console.log('=====END ===== AFTER PRICE RULES PRICE RULES=====');
     return Promise.resolve();
 }
 
