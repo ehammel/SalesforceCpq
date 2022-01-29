@@ -237,3 +237,9 @@ var defaultCapexSiteQuery = 'SELECT Id, Name, Site_Type__c, Quote_Process__c FRO
  return resolve(null);
  });
 }
+
+//10. Reference Product field value instead of mapped twin field (similar to Formula field)
+// Use Case: Admin changes date on Product and all Quote Lines should be impacted (instead of newly added quote lines henceforth)
+// Note: Need to create twin field on Quote Line to ensure QCP works
+// Example:
+var endOfLifeOnProductRecord = line.record["SBQQ__Product__r"]["EndOfLifeDate__c"];
