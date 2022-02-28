@@ -243,3 +243,30 @@ var defaultCapexSiteQuery = 'SELECT Id, Name, Site_Type__c, Quote_Process__c FRO
 // Note: Need to create twin field on Quote Line to ensure QCP works
 // Example:
 var endOfLifeOnProductRecord = line.record["SBQQ__Product__r"]["EndOfLifeDate__c"];
+
+
+//11. Set Quote Line Group fields via QCP
+//Use Case: Each group is a separate customer "site".  Looking to find Site summary totals.  
+//Below code sets Group fields HardwareTotal__c and HardwareQuantity__c
+export function onBeforeCalculate(quoteModel, quoteLineModels, conn) {
+    //mark quote true if no groups are present
+    if (quoteModel.groups.length === 0) {
+        quoteModel.groups.forEach(function(group) {
+            var hardwareTotal = 0;
+            var hardwareQty = 0;
+
+            group.lineItems.forEach(function(line) {
+                var qty = line.record.SBQQ__Quantity__c;
+                var netTotal = line.record.SBQQ__NetTotal__c;
+                var productFamily = line.record.SBQQ__ProductFamily__c;
+                if (productFamily == 'Hardware') {
+                    hardwareTotal += netTotal;
+                    hardwareQty += qty;
+                }
+            });
+            group.record["HardwareTotal__c"] = hardwareTotal;
+            group.record["HardwareQuantity__c"] = hardwareQty;
+        });
+        return Promise.resolve();
+    }
+}
