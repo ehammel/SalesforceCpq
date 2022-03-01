@@ -15,7 +15,7 @@ clonedLines.originalLines.standard.forEach(function (line){
 
 export function onAfterCloneLine(quote, clonedLines) {
     clonedLines.originalLines.standard.forEach(function (line){
-    //do stuff
+    //do stuff on source quote lines
     });
 clonedLines.clonedLines.standard.forEach(function (line){
     line.record["SBQQ__Discount__c"] = null;
