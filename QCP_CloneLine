@@ -1,4 +1,5 @@
 /*
+Overview: Code fires when clone action occurs.
 1. Create a Custom Script record
 2. Populate Code field  with example code
 3. Alter template as necessary to set the OriginalLines or ClonedClines in the clonedLines parameter.
