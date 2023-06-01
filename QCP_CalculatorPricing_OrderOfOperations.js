@@ -9,7 +9,7 @@ Order of Operations (OOP) numerated and compared against the OOP for Price Rules
 
 //2. QCP onInit executes
 export function onInit(quoteLineModels, conn) {
-    printModels('onInit', quoteModel, quoteLineModels, conn);
+    printModels('onInit', quoteLineModels, conn);
     return Promise.resolve();
 }
 
