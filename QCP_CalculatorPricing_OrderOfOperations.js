@@ -1,5 +1,5 @@
 /*
-Custom Script (QCP).  Function: prints Quote, Quote Line and Connection Models (conn) in the browser's console when on the Edit Lines (Line Editor) Visualforce page.  Copy and paste this code into a Custom Script record and then populate the name of the Custom Script record in the CPQ installed package settings 
+CPQ Pricing Order of Operations with in-line Custom Script (QCP).  Function: prints Quote, Quote Line and Connection Models (conn) in the browser's console when on the Edit Lines (Line Editor) Visualforce page.  Copy and paste this code into a Custom Script record and then populate the name of the Custom Script record in the CPQ installed package settings 
 Order of Operations (OOP) numerated and compared against the OOP for Price Rules.
 */
 
@@ -9,9 +9,7 @@ Order of Operations (OOP) numerated and compared against the OOP for Price Rules
 
 //2. QCP onInit executes
 export function onInit(quoteLineModels, conn) {
-    console.log('=====START ===== ON INIT PRICE RULES=====');
-    console.log('onInit()', quoteLineModels, conn);
-    console.log('=====END ===== ON INIT PRICE RULES=====');
+    printModels('onInit', quoteModel, quoteLineModels, conn);
     return Promise.resolve();
 }
 
@@ -21,9 +19,7 @@ export function onInit(quoteLineModels, conn) {
 
 // 4. QCP onBeforeCalculate executes
 export function onBeforeCalculate(quoteModel, quoteLineModels, conn) {
-    console.log('=====START ===== BEFORE CALCULATE PRICE RULES=====');
-    console.log('onBeforeCalculate()', quoteModel, quoteLineModels, conn);
-    console.log('=====END ===== BEFORE CALCULATE PRICE RULES=====');
+    printModels('onBeforeCalculate', quoteModel, quoteLineModels, conn);
     return Promise.resolve();
 }
 
@@ -31,9 +27,7 @@ export function onBeforeCalculate(quoteModel, quoteLineModels, conn) {
 
 // 5. QCP onBeforePriceRules executes
 export function onBeforePriceRules(quoteModel, quoteLineModels, conn) {        
-    console.log('=====START ===== BEFORE PRICE RULES PRICE RULES=====');
-    console.log('onBeforePriceRules()', quoteModel, quoteLineModels, conn);
-    console.log('=====END ===== BEFORE PRICE RULES PRICE RULES=====');
+    printModels('onBeforePriceRules', quoteModel, quoteLineModels, conn);
     return Promise.resolve();
 }
 
@@ -41,21 +35,23 @@ export function onBeforePriceRules(quoteModel, quoteLineModels, conn) {
 
 // 7. QCP onAfterPriceRules executes
 export function onAfterPriceRules(quoteModel, quoteLineModels, conn) {
-    console.log('=====START ===== AFTER PRICE RULES PRICE RULES=====');
-    console.log('onAfterPriceRules()', quoteModel, quoteLineModels, conn);
-    console.log('=====END ===== AFTER PRICE RULES PRICE RULES=====');
+    printModels('onAfterPriceRules', quoteModel, quoteLineModels, conn);
     return Promise.resolve();
 }
-// Salesforce reloads related records, including internal pricing logic
+// Salesforce reloads related records, including internal pricing logic. 
+// NOTE: Internal pricing logic includes system discounts (i.e. discount schedules), additional disc (manual user-entered discounts), partner and distributor discounting, and special price and contracted price discounting.
 
 // 8. Price rules with Calculator Evaluation Event "After Calculate" Execute
 
 // 9. QCP OnAfterCalculate executes
 export function onAfterCalculate(quoteModel, quoteLineModels, conn) {
-    console.log('=====START ===== AFTER CALCULATE PRICE RULES=====');
-    console.log('onAfterCalculate()', quoteModel, quoteLineModels, conn);
-    console.log('=====END ===== AFTER CALCULATE PRICE RULES=====');
+    printModels('OnAfterCalculate', quoteModel, quoteLineModels, conn);
     return Promise.resolve();
 }
 
 // Salesforce reloads related records and calculates all formulas
+function printModels (calcStep, quoteModel, quoteLineModels, conn){
+    console.log('=====START ===== ' + calcStep);
+    console.log('Models: ', quoteModel, quoteLineModels, conn);            
+    console.log('=====END ===== ' + calcStep);            
+}
