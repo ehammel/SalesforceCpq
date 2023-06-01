@@ -1,6 +1,11 @@
-/*
-CPQ Pricing Order of Operations with in-line Custom Script (QCP).  Function: prints Quote, Quote Line and Connection Models (conn) in the browser's console when on the Edit Lines (Line Editor) Visualforce page.  Copy and paste this code into a Custom Script record and then populate the name of the Custom Script record in the CPQ installed package settings 
-Order of Operations (OOP) numerated and compared against the OOP for Price Rules.
+/* READ ME **
+CPQ Pricing Order of Operations with in-line Custom Script (QCP).  
+
+Function: Displays field and data during various steps of calculation sequence. Helpful for debugging and advanced pricing development.
+Numbers designate a pricing step executing.
+
+Note: This must be populated in a Custom Script record. Input the name of the Custom Script record under Installed Packages > CPQ > Plugins > Quote Calculator Plugin
+Remove or comment the printModels lines before deployment.
 */
 
 // Salesforce loads related records
