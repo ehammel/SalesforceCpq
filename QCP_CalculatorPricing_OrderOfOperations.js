@@ -3,6 +3,8 @@ Custom Script (QCP).  Function: prints Quote, Quote Line and Connection Models (
 Order of Operations (OOP) numerated and compared against the OOP for Price Rules.
 */
 
+// Salesforce loads related records
+
 //1. Price Rules with Calculator Evaluation Event "On Init" execute
 
 //2. QCP onInit executes
@@ -13,6 +15,8 @@ export function onInit(quoteLineModels, conn) {
     return Promise.resolve();
 }
 
+// Salesforce reloads related records, including computing Quote Line Formulas
+
 // 3. Price Rules Calculator Evaluation Event "on before calculate" execute
 
 // 4. QCP onBeforeCalculate executes
@@ -22,6 +26,8 @@ export function onBeforeCalculate(quoteModel, quoteLineModels, conn) {
     console.log('=====END ===== BEFORE CALCULATE PRICE RULES=====');
     return Promise.resolve();
 }
+
+// Salesforce reloads related records, and calculates quote line quantities
 
 // 5. QCP onBeforePriceRules executes
 export function onBeforePriceRules(quoteModel, quoteLineModels, conn) {        
@@ -40,6 +46,7 @@ export function onAfterPriceRules(quoteModel, quoteLineModels, conn) {
     console.log('=====END ===== AFTER PRICE RULES PRICE RULES=====');
     return Promise.resolve();
 }
+// Salesforce reloads related records, including internal pricing logic
 
 // 8. Price rules with Calculator Evaluation Event "After Calculate" Execute
 
@@ -50,3 +57,5 @@ export function onAfterCalculate(quoteModel, quoteLineModels, conn) {
     console.log('=====END ===== AFTER CALCULATE PRICE RULES=====');
     return Promise.resolve();
 }
+
+// Salesforce reloads related records and calculates all formulas
