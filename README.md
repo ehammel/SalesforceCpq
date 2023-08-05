@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Salesforce CPQ Customization Repository</title>
-</head>
+
 <body>
  
 <h1>Salesforce CPQ Customization Repository</h1>
