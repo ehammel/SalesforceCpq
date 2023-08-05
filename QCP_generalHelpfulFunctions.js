@@ -33,8 +33,8 @@ function clearLineDiscountAndUplift(line){
 }
 
 // 2. Example Implementation
-//...
-var clearDiscounts = quote.record["Mass_Edit_Clear_Discount_Uplifts__c"];
+//...toggled by user as a checkbox field
+var clearDiscounts = quote.record["Mass_Edit_Clear_Discount_Uplifts_Flag__c"];
        
 if(clearDiscounts = true && effectiveQuantity > 0){
   clearLineDiscountAndUplift(line);
@@ -44,13 +44,8 @@ if(clearDiscounts = true && effectiveQuantity > 0){
 // 3. If looking to inherit the field value from Parent Quote Line to Child Quote Line (i.e. An Option of the Parent):
 
 function inheritFieldValueFromParent(line, field){
-    if(String(line.record[field]) == 'undefined'  ||  line.record[field] == ""){
-        line.record[field] = null;
-    }
-    if(line.record[field] == null && line.parentItem !== null){
-        if(line.parentItem.record[field] !== null){
-            line.record[field] = line.parentItem.record[field];
-        }
+    if(!line.record[field]){
+        line.record[field] = line.parentItem?.record[field] || null;
     }
 }
 
@@ -113,17 +108,12 @@ function populateGroupList(approvalGroups, lineProductFamily, productLine, isLeg
     return textArea;
   }
 
-// 5. Calculate user entered Quote Discount for approvals.  Calculates total additional discount against Price after system discounts applied.  IOW, compares Regular and Customer Total.
+// 5. Calculate user entered Quote Discount for approvals.  Calculates total additional discount against Price after system discounts applied.  Basically compares Regular and Customer Total.
 
 function calculateQuoteDiscount(quoteModel, sum_addedRegularTotal, sum_addedCustomerTotal) {
-    var calculatedDiscountPercent = 0;
-    if (sum_addedRegularTotal !== 0) {
-        calculatedDiscountPercent = 100 * (sum_addedRegularTotal - sum_addedCustomerTotal) / sum_addedRegularTotal;
-        calculatedDiscountPercent.toFixed(0);
-    }
-    //console.log('Calculated discount percent == ' + calculatedDiscountPercent);
-    return calculatedDiscountPercent;
-  }
+    return (sum_addedRegularTotal !== 0) ? 
+        Number((100 * (sum_addedRegularTotal - sum_addedCustomerTotal) / sum_addedRegularTotal).toFixed(0)) : 0;
+}
 
 // 5. Example Implementation
 quoteLines.forEach(function(line) {
@@ -172,13 +162,8 @@ function preCalcNetTotal(listPrice, optionDiscount, prorateMultiplier, discount,
 // 7. Evaluates current, parent line and and a field to sum.  Adds the field for all child products and the current, parent line's field value. 
 
 function sumFieldToParentProduct(parentLine, fieldToSum) {
-    var childProductSum = 0;
-    for (var i = 0, length = parentLine.components.length; i < length; i++) {
-        childProductSum += parentLine.components[i].record[fieldToSum];
-        if (i == parentLine.components.length - 1) {
-            return (childProductSum + parentLine.components[i].parentItem.record[fieldToSum]);
-        }
-    }
+    return parentLine.components.reduce((sum, comp) => sum + comp.record[fieldToSum], 0) +
+        parentLine.components[0].parentItem.record[fieldToSum];
 }
 
 //7. Implementation
