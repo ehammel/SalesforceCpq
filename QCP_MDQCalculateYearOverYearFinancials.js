@@ -1,16 +1,19 @@
 export function onInit(lines) {
-  for(var i = 0, len = lines.length; i < len; i++){
-    if(lines[i].parentItem && lines[i].record["Size__c"] == null){
-      lines[i].record["Size__c"] = lines[i].parentItem.record["Size__c"];
-    }
-    if(lines[i].parentItem && lines[i].record["Number_of_Users__c"] == null){
-      lines[i].record["Number_of_Users__c"] = lines[i].parentItem.record["Number_of_Users__c"];
-    }
-    if(lines[i].parentItem && lines[i].record["Number_of_Locations__c"] == null){
-      lines[i].record["Number_of_Locations__c"] = lines[i].parentItem.record["Number_of_Locations__c"];
+  for(const line of lines){
+    if(line.parentItem){
+      const { record } = line.parentItem;
+      if(line.record["Size__c"] == null){
+        line.record["Size__c"] = record["Size__c"];
+      }
+      if(line.record["Number_of_Users__c"] == null){
+        line.record["Number_of_Users__c"] = record["Number_of_Users__c"];
+      }
+      if(line.record["Number_of_Locations__c"] == null){
+        line.record["Number_of_Locations__c"] = record["Number_of_Locations__c"];
+      }
     }
   }
-return Promise.resolve();
+  return Promise.resolve();
 }
 
 let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
@@ -448,24 +451,23 @@ export function onAfterCalculate(quote, lines) {
 
 //sets fields to not editable if return false
 export function isFieldEditable(fieldName, line) {
-  if(line){
-    if (fieldName == 'Software_Compatibility__c' || fieldName == 'AdditionalDiscountUnit__c' || fieldName == 'List_Unit_Price_QLE__c' || fieldName == 'Regular_Unit_Price_QLE__c') {
-      return false
-    }
+  const fieldsThatAreNotEditable = {
+    'Software_Compatibility__c': true,
+    'AdditionalDiscountUnit__c': true,
+    'List_Unit_Price_QLE__c': true,
+    'Regular_Unit_Price_QLE__c': true,
+    'Package_Discount_Perc__c': true,
+    'SBQQ__Quantity__c': true,
+    'SBQQ__Uplift__c': true,
+  };
+
+  if (fieldsThatAreNotEditable[fieldName] && (line || line.SBQQ__Bundle__c || line.SBQQ__UpgradedAsset__c)) {
+    return false;
   }
-  if(line.SBQQ__SegmentIndex__c == 1 && line.SBQQ__RenewedSubscription__c == null) {
-    if (fieldName == 'SBQQ__Uplift__c') {
-    }
+
+  if (line && line.SBQQ__SegmentIndex__c == 1 && line.SBQQ__RenewedSubscription__c == null && fieldName == 'SBQQ__Uplift__c') {
+    return false;
   }
-  if(line.SBQQ__Bundle__c){
-    if (fieldName == 'Package_Discount_Perc__c') {
-      return false
-    }
-  }
-  if(line.SBQQ__UpgradedAsset__c){
-      if (fieldName == 'SBQQ__Quantity__c' || fieldName == 'SBQQ__Uplift__c') {
-          return false
-        }
-  }
-return null;
+
+  return null;
 }
