@@ -1,39 +1,48 @@
-<apex:page docType="html-5.0" lightningStylesheets="true" showHeader="false" sidebar="false" standardController="SBQQ__QuoteLine__c"  extensions="quoteLineDetailsController">
-<apex:pageBlock title="CPQ Price Waterfall">
-    <apex:pageBlockSection title="Line Pricing Details" columns="2">
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__ProductName__c}"/>
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__PricingMethod__c}"/>
-        
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__EffectiveQuantity__c}"/>
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__ProrateMultiplier__c}"/>
-        
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__ListPrice__c}"/>
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__ListTotal__c}"/>
-        
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__OptionDiscountAmount__c}"/>
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__VolumeDiscount__c}"/>
-        
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__RegularPrice__c}"/>
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__RegularTotal__c}"/>
- 
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__TotalDiscountAmount__c}"/>
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__TotalDiscountRate__c}"/>
+<apex:page docType="html-5.0" lightningStylesheets="true" showHeader="false" sidebar="false" standardController="SBQQ__QuoteLine__c" extensions="quoteLineDetailsController">
+    <apex:pageBlock title="CPQ Price Waterfall">
+        <apex:pageBlockSection title="Line Pricing Details" columns="2">
 
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__CustomerPrice__c}"/>
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__CustomerTotal__c}"/>
-        
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__PartnerDiscount__c}"/>
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__NonPartnerDiscountable__c}"/>  
-             
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__PartnerPrice__c}"/>
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__PartnerTotal__c}"/>
-        
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__DistributorDiscount__c}"/>
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__Bundled__c}"/>
-        
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__NetPrice__c}"/>
-        <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__NetTotal__c}"/>
-        
-    </apex:pageBlockSection>
-</apex:pageBlock>
+            <!-- Product Info -->
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__ProductName__c}"/>
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__PricingMethod__c}"/>
+
+            <!-- Quantity & Pricing -->
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__EffectiveQuantity__c}"/>
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__ProrateMultiplier__c}"/>
+            
+            <!-- List Pricing -->
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__ListPrice__c}"/>
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__ListTotal__c}"/>
+            
+            <!-- Discounts -->
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__OptionDiscountAmount__c}"/>
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__VolumeDiscount__c}"/>
+            
+            <!-- Regular Pricing -->
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__RegularPrice__c}"/>
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__RegularTotal__c}"/>
+            
+            <!-- Total Discounts -->
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__TotalDiscountAmount__c}"/>
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__TotalDiscountRate__c}"/>
+            
+            <!-- Customer Pricing -->
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__CustomerPrice__c}"/>
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__CustomerTotal__c}"/>
+            
+            <!-- Partner Pricing & Discounts -->
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__PartnerDiscount__c}"/>
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__NonPartnerDiscountable__c}"/>
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__PartnerPrice__c}"/>
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__PartnerTotal__c}"/>
+
+            <!-- Distributor Pricing & Discounts -->
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__DistributorDiscount__c}"/>
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__Bundled__c}"/>
+
+            <!-- Net Pricing -->
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__NetPrice__c}"/>
+            <apex:outputField value="{!SBQQ__QuoteLine__c.SBQQ__NetTotal__c}"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
 </apex:page>
