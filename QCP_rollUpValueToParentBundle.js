@@ -17,25 +17,26 @@ Customizations:
 */
 
 function sumFieldToParentProduct(parentLine, fieldToSum, includeParentPrice){
-   var childProductSum = 0;
-   for(var i = 0, length = parentLine.components.length; i < length; i++){
-      childProductSum += parentLine.components[i].record[fieldToSum];
-      if(i == parentLine.components.length - 1 && includeParentPrice){
-         return childProductSum + parentLine.components[i].parentItem.record[fieldToSum];
-      }
-      else{
-         return childProductSum;
-      }
+   let childProductSum = parentLine.components.reduce((acc, component) => {
+     return acc + component.record[fieldToSum];
+   }, 0);
+
+   if(includeParentPrice){
+      childProductSum += parentLine.components[parentLine.components.length - 1].parentItem.record[fieldToSum];
    }
+   
+   return childProductSum;
 }
 
 export function onBeforeCalculate(quote, lines) {
     //add Quote Line fields to fieldsToSum array
-    var fieldsToSum =  ["SBQQ__OriginalPrice__c"];
-    var includeParentPrice = true;
-    for (var i = 0, len = lines.length; i < len; i++) {
-       if(lines[i].record["SBQQ__Bundle__c"] && !(lines[i].record["SBQQ__OptionLevel__c"])){
-          lines[i].record["Total_Unit_Price__c"] = sumFieldToParentProduct(lines[i], fieldsToSum[0], includeParentPrice);
+    let fieldsToSum =  ["SBQQ__OriginalPrice__c"];
+    let includeParentPrice = true;
+
+    for (let i = 0, len = lines.length; i < len; i++) {
+       let line = lines[i];
+       if(line.record["SBQQ__Bundle__c"] && !(line.record["SBQQ__OptionLevel__c"])){
+          line.record["Total_Unit_Price__c"] = sumFieldToParentProduct(line, fieldsToSum[0], includeParentPrice);
        }
     }  
 return Promise.resolve();
