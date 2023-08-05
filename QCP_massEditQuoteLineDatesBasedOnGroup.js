@@ -15,26 +15,16 @@ How to use:
 */
 
 
-function massEditStart(line){
-  if(line.group.record["Override_Start_Date__c"]){
-    return line.group.record["SBQQ__StartDate__c"];
-  }
-}
-
-function massEditEnd(line){
-  if(line.group.record["Override_End_Date__c"]){
-    return line.group.record["SBQQ__EndDate__c"];
-  }
-}
-
 export function onBeforeCalculate(quote, lines) {
-    for (var i = 0, len = lines.length; i < len; i++) {
-      if(lines[i].group != null){
-        if(lines[i].group.record["Override_Start_Date__c"]){
-          lines[i].record["SBQQ__StartDate__c"] = massEditStart(lines[i]);
+    for (let i = 0, len = lines.length; i < len; i++) {
+      let line = lines[i];
+      if(line.group != null){
+        let groupRecord = line.group.record;
+        if(groupRecord["Override_Start_Date__c"]){
+          line.record["SBQQ__StartDate__c"] = groupRecord["SBQQ__StartDate__c"];
         } 
-        if(lines[i].group.record["Override_End_Date__c"]){
-          lines[i].record["SBQQ__EndDate__c"] = massEditEnd(lines[i]);
+        if(groupRecord["Override_End_Date__c"]){
+          line.record["SBQQ__EndDate__c"] = groupRecord["SBQQ__EndDate__c"];
         } 
       }
     }    
