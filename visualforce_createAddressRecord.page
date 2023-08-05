@@ -1,31 +1,19 @@
-<!-- ShippingAccount__c is some custom object that can be created by end user in Custom Action during configuration if needed -->
-
-<apex:page showHeader="false" sidebar="false" docType="html-5.0" standardController="ShippingAccount__c" lightningStylesheets="true"  >
-    <apex:form >
+<apex:page showHeader="false" sidebar="false" docType="html-5.0" standardController="ShippingAccount__c" lightningStylesheets="true">
+    <apex:form>
         <apex:pageBlock title="Create New Address">
-
-            <apex:pageBlockSection >
-        <apex:inputField value="{!ShippingAccount__c.Name }"/>
-                </apex:pageBlockSection>
-                            
-                            <apex:pageBlockSection >
-        <apex:inputField value="{!ShippingAccount__c.Account__c }"/>
-                </apex:pageBlockSection>
-                
-            <apex:pageBlockSection >
-        <apex:inputField value="{!ShippingAccount__c.Party__c }"/>
-                        </apex:pageBlockSection>
-                        
-            <apex:pageBlockSection >
-        <apex:inputField value="{!ShippingAccount__c.Locations__c }"/>
-                        </apex:pageBlockSection>
-                        
-                                    <apex:pageBlockSection >
-        <apex:inputField value="{!ShippingAccount__c.ShipToContact__c }"/>
-                        </apex:pageBlockSection>
-                                <apex:pageBlockButtons>
-            <apex:commandButton action="{! save }" value="Save" />
-        </apex:pageBlockButtons>
-           </apex:pageblock>             
+            <!-- Group fields together in a single pageBlockSection for better formatting -->
+            <apex:pageBlockSection columns="1">
+                <apex:inputField value="{!ShippingAccount__c.Name}"/>
+                <apex:inputField value="{!ShippingAccount__c.Account__c}"/>
+                <apex:inputField value="{!ShippingAccount__c.Party__c}"/>
+                <apex:inputField value="{!ShippingAccount__c.Locations__c}"/>
+                <apex:inputField value="{!ShippingAccount__c.ShipToContact__c}"/>
+            </apex:pageBlockSection>
+            
+            <!-- Page block buttons -->
+            <apex:pageBlockButtons>
+                <apex:commandButton action="{! save }" value="Save" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
     </apex:form>
 </apex:page>
