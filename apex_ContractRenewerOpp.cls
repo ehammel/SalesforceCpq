@@ -9,18 +9,24 @@ public with sharing class ContractRenewerOpp {
         opp =  (Opportunity) controller.getRecord();
     }
     
-    public PageReference renewContract() {
-        ContractRenewer renewer = new ContractRenewer();
-        RenewalContext input = new RenewalContext();
-        input.masterContractId = null;
-        input.renewedContracts = [SELECT Id FROM Contract WHERE Id = :opp.SBQQ__RenewedContract__c];
-        
-        if (!input.renewedContracts.isEmpty()) {
-            renewer.load(null, JSON.serialize(input));
-        }
+    @AuraEnabled
+    public static PageReference renewContract(List<Contract> renewedContracts, Id oppId) {
+        try {
+            ContractRenewer renewer = new ContractRenewer();
+            RenewalContext input = new RenewalContext();
+            input.masterContractId = null;
+            input.renewedContracts = renewedContracts;
+            
+            if (!input.renewedContracts.isEmpty()) {
+                renewer.load(null, JSON.serialize(input));
+            }
 
-        PageReference pageRef = new PageReference('/'+opp.Id);
-        pageRef.setRedirect(true);
-        return pageRef; //Returns to the opp page
+            PageReference pageRef = new PageReference('/'+oppId);
+            pageRef.setRedirect(true);
+            return pageRef; //Returns to the opp page
+        } catch(Exception e) {
+            ApexPages.addMessages(e);
+            return null;
+        }  
     }  
 }
