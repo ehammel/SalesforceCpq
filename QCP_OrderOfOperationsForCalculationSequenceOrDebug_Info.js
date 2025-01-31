@@ -5,7 +5,7 @@ Function: Displays field and data during various steps of calculation sequence. 
 Numbers designate a pricing step executing.
 
 Note: This must be populated in a Custom Script record. Input the name of the Custom Script record under Installed Packages > CPQ > Plugins > Quote Calculator Plugin
-Remove or comment the printModels lines before deployment.
+Remove or comment the printModels method before deployment.
 */
 
 // Salesforce loads related records
